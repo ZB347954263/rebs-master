@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rebs.db.dao.OrgMapper">
+  <!-- 查询Org -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="com.rebs.db.domain.Org">
+    select 
+         ORG_ID AS  orgId,
+		 PARENT_ID AS parentId,
+		 ID_PATH AS idPath,
+		 LEVEL_NUM AS levelNum,
+		 ORDER_INDEX AS orderIndex,
+		 SHORT_NAME AS shortName,
+		 FULL_NAME AS fullName,
+		 ADDRESS AS address
+    from ORG
+    where ORG_ID = #{orgId}
+  </select>
+</mapper>

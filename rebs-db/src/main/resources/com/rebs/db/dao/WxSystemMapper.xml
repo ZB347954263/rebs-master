@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.WxSystemMapper" >
+  
+  <select id="selectByKeyName" resultType="com.rebs.db.domain.WxSystem" parameterType="java.lang.String" >
+    select 
+       ID as id,
+       KEY_NAME as keyName,
+       KEY_VALUE as keyValue,
+       VERSION as version,
+       DELETED as deleted
+     from WX_SYSTEM
+     where KEY_NAME = #{keyName,jdbcType=VARCHAR}
+  </select>
+</mapper>

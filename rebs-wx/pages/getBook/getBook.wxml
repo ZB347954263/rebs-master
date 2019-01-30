@@ -1,0 +1,35 @@
+<!-- <view class="container">
+  <view class="catalog">
+    <scroll-view class="cate" scroll-y="true">
+    <view class="orders">
+      <view class="order">
+      {{book.bookName}}
+            <view class="goods" wx:for="{{bookChapterList}}" wx:key="chapterId"  data-chapterId="{{item.chapterId}}" data-index="{{index}}" bindtap="lianXi">
+                <view class="img">{{index+1}}</view>
+                 <view class="info"><text class="name">{{item.chapterName}}</text>
+                
+                </view>
+            </view>
+      </view>
+    </view>
+    </scroll-view>
+  </view>
+</view> -->
+<view class="index-exam-h1" wx:if="{{toUrlType == 2}}" bindtap="bookView">
+        {{book.bookName}}
+</view>
+<view class="index-exam-h1" wx:else>
+        {{book.bookName}}
+</view>
+<view class="classify-exer-lists row num first">
+  <view class="classify-exer-list col-hg-12 left" hover-class="navigator-hover" wx:for="{{bookChapterList}}" wx:key="chapterId"  data-chapterId="{{item.chapterId}}" data-index="{{index}}" data-title="{{item.chapterName}}" bindtap="lianXi">
+   <view  class="special-exer-tip">{{index+1}}</view>
+    {{item.chapterName}}
+    <view class="classify-exam-num">
+      <!-- 284 -->
+      <view class="icon-label-class"></view>
+    </view>
+  </view>
+</view>
+
+

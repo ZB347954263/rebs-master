@@ -1,0 +1,21 @@
+<!-- <view id='examTips'>
+<text>{{examTips.examMessage}}</text>
+</view>
+<button bindtap="onClickStartExam" size='2px'>开始正式考试 </button> -->
+
+
+<view class="page__hd">
+  <view class="page__desc" style="font-size:30rpx;">考试规则</view>
+</view>
+<view class="weui-panel" >
+  <view class="weui-panel__bd">
+    <view class="weui-article">
+      <view class="wxParse">
+        <text>{{examTips.examMessage}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="button-sp-area">
+  <button bindtap="onClickStartExam" class="weui-btn" type="primary" plain="true">开始正式考试</button>
+</view>

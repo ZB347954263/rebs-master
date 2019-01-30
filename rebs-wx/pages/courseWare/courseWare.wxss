@@ -1,0 +1,7 @@
+/* pages/courseWare/courseWare.wxss */
+@import "../catalog/catalog.wxss";
+.no-data view {
+text-align:center;
+color:#999;
+margin-top:15rpx;
+}

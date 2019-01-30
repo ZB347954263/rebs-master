@@ -1,0 +1,36 @@
+<view class="page__hd">
+  <!-- <image class="weui-media-box__thumb" src="/images/core/lib.png" /> -->
+  <view class="page__title">任务名称：{{task.taskName}}</view>
+  <!-- <view class="page__desc">单位：
+    <block wx:for="{{userInfo.orgNames}}" wx:for-index="index">
+      <block wx:if="{{index != 0}}">{{item}}<block wx:if="{{index != userInfo.orgNames.length-1}}">--</block></block>
+    </block>
+  </view> -->
+</view>
+<view class="page__bd">
+  <view class="weui-panel" wx:if="{{studyTaskDetailList.length>0}}">
+    <view class="weui-panel__hd">教材课件名称/要求学习时间（分钟）/学习时间（分钟）</view>
+    <view class="weui-panel__bd" >
+      <view class="weui-media-box weui-media-box_appmsg" bindtap="onClickStudyDetail" hover-class="weui-cell_active" data-taskdetailid="{{item.taskDetailId}}" data-type="{{item.type}}" data-bookid="{{item.bookId}}"  data-coursewareid="{{item.courseWareId}}" data-title="{{item.courseWareName}}" wx:for="{{studyTaskDetailList}}" wx:key="taskDetailId">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          {{index + 1}}
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg desc">
+          <view class="weui-media-box__title" wx:if="{{item.type == 1}}">{{item.bookName}}</view>
+            <view class="weui-media-box__title" wx:if="{{item.type == 2}}">{{item.courseWareName}}</view>
+            <view class="weui-media-box__desc">要求学习：{{item.needTime}}分钟，已学习：<span style="color:{{item.hasTime?(item.needTime>item.hasTime?'red':'green'):'red'}}">{{item.hasTime?item.hasTime:0}}</span>分钟</view>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="zan-capsule zan-capsule" style="float:right;">
+            <view class="zan-capsule__left"></view>
+            <view class="zan-capsule__right" wx:if="{{item.type == 1}}">教材</view>
+            <view class="zan-capsule__right" wx:if="{{item.type == 2}}">课件</view>
+             <view class="classify-exam-num">
+              <view class="icon-label-class"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

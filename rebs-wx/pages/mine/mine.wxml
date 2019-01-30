@@ -1,0 +1,48 @@
+<view class="no-login" wx:if="{{!hasLogin}}">
+    <view class="c">
+      <text>还没有登录</text>
+      <button style="background-image: linear-gradient(to right, #197aaf 0%, #49d1ed 100%);"   bindtap="goLogin">去登录</button>
+    </view>
+</view>
+<!--mine.wxml-->
+<view wx:else="{{hasLogin}}">
+	<view class="userinfo">
+  <open-data class="userinfo-avatar" background-size="cover" type="userAvatarUrl"></open-data>
+  <!-- <open-data class="userinfo-nickname"  type="userNickName"></open-data> -->
+  <view class="page__hd">
+    <!-- <image class="weui-media-box__thumb" src="/images/core/lib.png" /> -->
+    <view class="page__title">姓名：{{userInfo.employeeName}}</view>
+    <view class="page__title">工号：{{userInfo.workNo}}</view>
+    <view class="page__title">职名：{{userInfo.postName}}</view>
+    <view class="page__desc" wx:if="{{userInfo.orgNames != null && userInfo.orgNames.length>1}}">单位：
+      <block wx:for="{{userInfo.orgNames}}" wx:for-index="index">
+        <block wx:if="{{index != 0 &&index != 1}}">{{item}}<block wx:if="{{index != userInfo.orgNames.length-1}}">--</block></block>
+      </block>
+    </view>
+  </view>
+		<!-- <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image> -->
+		<!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
+		<!-- <view class="userinfo-dig" bindtap="toLianXi">开始我的练习</view> -->
+    <button type="default" class="userinfo-dig btn-quit weixin-auth" open-type="getUserInfo"  bindgetuserinfo="authLogin">微信授权     </button>
+    
+    
+		<text class="userinfo-desc"></text>
+	</view>
+	<view class="profile-wrapper" catchtap="loadProfile">
+		<block wx:for="{{myProfile}}" >
+			<view class="profile" id="{{item.id}}" bindtap="tabClick" hover-class="navigator-hover">
+				<view class="profile-item"> {{item.desc}} </view>
+				<image class="profile-arrow" src="/static/images/arrow.png"></image>
+			</view>
+		</block>
+	</view>
+	<!-- <view class="account-wrapper">
+		<view class="account" wx:for="{{myAccount}}">
+			<view class="account-item"> {{item}} </view>
+			<image class="account-arrow" src="/static/images/arrow.png"></image>
+		</view>
+	</view> -->
+  <!-- <button type="primary" class="btn-quit" bindtap='authLogin'> 微信授权 </button> -->
+  <!-- <button type="default" class="btn-quit weixin-auth" open-type="getUserInfo"  bindgetuserinfo="authLogin">微信授权</button> -->
+	<button type="default" class="btn-quit login-out" bindtap='loginOut'> 退出登录 </button>
+</view>

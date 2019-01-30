@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.ItemMapper" >
+
+
+<resultMap id="cursorItemMap_Item" type="com.rebs.db.domain.Item" >
+    <result column="ITEM_ID" property="itemId"  />
+    <result column="BOOK_ID" property="bookId"  />
+    <result column="CHAPTER_ID" property="chapterId"  />
+    <result column="CATEGORY_ID" property="categoryId"  />
+    <result column="ORG_ID" property="orgId"  />
+    <result column="TYPE_ID" property="typeId"  />
+    <result column="COMPLETE_TIME" property="completeTime"  />
+    <result column="DIFFICULTY_ID" property="difficultyId"  />
+    <result column="SOURCE" property="source" />
+    <result column="VERSION" property="version" />
+    <result column="SCORE" property="score"  />
+    <result column="CONTENT" property="content" />
+    <result column="ANSWER_COUNT" property="answerCount"  />
+    <result column="SELECT_ANSWER" property="selectAnswer" />
+    <result column="STANDARD_ANSWER" property="standardAnswer" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="OUTDATE_DATE" property="outDateDate"  />
+    <result column="USED_COUNT" property="usedCount"  />
+    <result column="STATUS_ID" property="statusId"  />
+    <result column="CREATE_PERSON" property="createPerson" />
+    <result column="CREATE_TIME" property="createTime"  />
+    <result column="USAGE_ID" property="usageId"  />
+    <result column="MEMO" property="memo" />
+    <result column="HASPICTURE" property="hasPicture"  />
+    <result column="KEY_WORD" property="keyWord" />
+    <result column="ERROR_DATE" property="errorDate"  />
+    <result column="WEIGHT" property="weight"  />
+    <result column="PARENT_ITEM_ID" property="parentItemId"  />
+    <result column="MOTHER_CODE" property="motherCode" />
+    <result column="ITEM_INDEX" property="itemIndex"  />
+    
+    <result column="BOOK_NAME" property="bookName" />
+    <result column="CHAPTER_NAME" property="chapterName" />
+    <result column="CATEGORY_NAME" property="categoryName" />
+    <result column="SHORT_NAME" property="shortName" />
+    <result column="TYPE_NAME" property="typeName" />
+    <result column="DIFFICULTY_NAME" property="difficultyName" />
+    <result column="STATUS_NAME" property="statusName" />
+</resultMap>
+
+
+
+
+<!-- 查询题目个数-->
+<select id="callProcedureUSP_ITEM_Exercise_S"  parameterType="java.util.Map" statementType="CALLABLE">
+ {
+     call USP_ITEM_EXERCISE_S(
+           #{P_BOOK_ID,mode=IN,jdbcType=NUMERIC},
+           #{P_CHAPTER_ID,mode=IN,jdbcType=NUMERIC},
+           #{P_TYPE_ID,mode=IN,jdbcType=NUMERIC},
+           #{CUR_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorItemMap_Item}
+     )
+  }
+</select>
+  
+  
+  
+</mapper>

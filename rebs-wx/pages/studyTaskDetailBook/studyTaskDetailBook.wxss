@@ -1,0 +1,2 @@
+/*引入article的css文件*/
+@import "../article/article.wxss";

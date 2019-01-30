@@ -1,0 +1,14 @@
+<!--pages/collection/collection.wxml-->
+
+<view class="collection-all" hover-class="navigator-hover" bindtap="toCollectionItem">
+  <view class="collection-item">所有我收藏的题</view>
+  <text class="collection-arrow">{{total}}</text>
+</view>
+<block wx:for="{{collectionOfBookList}}" wx:key="bookId">
+  <view class="collection" id="{{item.bookId}}" hover-class="navigator-hover" bindtap="toCollectionItem" wx:key="bookId"  data-bookId="{{item.bookId}}">
+    <view class="collection-item"> {{item.bookName}} </view>
+    <!-- <image class="profile-arrow" src="/static/images/arrow.png"></image> -->
+    <view class="icon-label-class"></view>
+    <text class="collection-arrow">{{item.collectionCount}}</text>
+  </view>
+</block>

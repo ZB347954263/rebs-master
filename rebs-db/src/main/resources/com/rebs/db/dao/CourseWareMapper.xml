@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.CourseWareMapper" >
+  
+  <!-- 根据级别获取视图下课件信息 -->
+  <select id="selectCourseWareTypeByLevelNum" resultType="com.rebs.db.domain.CourseWareType" parameterType="com.rebs.db.domain.CourseWareType" >
+    select 
+       COURSEWARE_TYPE_ID as courseWareTypeId,
+       PARENT_ID as parentId,
+       ID_PATH as idPath,
+       LEVEL_NUM as levelNum,
+       COURSEWARE_TYPE_NAME as courseWareTypeName,
+       DESCRIPTION as description
+     from  
+      COURSEWARE_TYPE
+     where LEVEL_NUM = #{levelNum,jdbcType=DECIMAL}
+     ORDER BY LEVEL_NUM, ORDER_INDEX
+  </select>
+  
+  
+  <select id="selectCourseWareById" resultType="com.rebs.db.domain.CourseWare" parameterType="com.rebs.db.domain.CourseWare" >
+    select 
+       t1.COURSEWARE_ID as courseWareId,
+       t1.COURSEWARE_NAME as courseWareName,
+       t1.COURSEWARE_TYPE_ID as courseWareTypeId,
+       t1.PROVIDE_ORG as provideOrg,
+       t1.PUBLISH_DATE as publishDate,
+       t1.AUTHORS as authors,
+       t1.REVISERS as revisers,
+       t1.KEYWORD as keyword,
+       t1.DESCRIPTION as description,
+       t1.URL as url,
+       t1.MEMO as memo,
+       t1.IS_GROUP_LEADER as isGroupLeader,
+       t1.TECHNICIAN_TYPE_ID as technicianTypeId,
+       t2.SHORT_NAME AS provideOrgName
+     from COURSEWARE t1
+     left join org t2 on t1.PROVIDE_ORG = t2.org_id
+     where 
+     <if test="courseWareName != null and courseWareName != ''">
+     t1.COURSEWARE_NAME like '%${courseWareName}%' AND
+     </if>
+     t1.COURSEWARE_TYPE_ID in (select COURSEWARE_TYPE_ID from COURSEWARE_TYPE where ID_PATH like ('/' || #{courseWareTypeId,jdbcType=DECIMAL} || '%'))
+     ORDER BY t1.PROVIDE_ORG,t1.ORDER_INDEX
+  </select>
+  
+  <select id="getCourseWareByCourseWareId" resultType="com.rebs.db.domain.CourseWare" parameterType="com.rebs.db.domain.CourseWare" >
+    select 
+       COURSEWARE_ID as courseWareId,
+       COURSEWARE_NAME as courseWareName,
+       COURSEWARE_TYPE_ID as courseWareTypeId,
+       PROVIDE_ORG as provideOrg,
+       PUBLISH_DATE as publishDate,
+       AUTHORS as authors,
+       REVISERS as revisers,
+       KEYWORD as keyword,
+       DESCRIPTION as description,
+       URL as url,
+       MEMO as memo,
+       IS_GROUP_LEADER as isGroupLeader,
+       TECHNICIAN_TYPE_ID as technicianTypeId
+     from COURSEWARE
+     where 
+     COURSEWARE_ID = #{courseWareId}
+  </select>
+</mapper>

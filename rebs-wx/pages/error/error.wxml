@@ -1,0 +1,59 @@
+<view class="page__hd">
+  <image class="weui-media-box__thumb" src="/static/images/table.png" />
+  <view class="page__title">我的错题</view>
+  <view class="page__desc" wx:if="{{activeIndex == 1}}">{{lianxiTotal}}</view>
+  <view class="page__desc" wx:if="{{activeIndex == 2}}">{{examTotal}}</view>
+  <view class="weui-panel border-shadow">
+    <view class="weui-panel__bd">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index + 1}}" class="weui-navbar__item {{activeIndex == index + 1 ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+<scroll-view scroll-y class='body-v'>
+<view class="page__bd">
+  <view class="weui-tab">
+    <view class="weui-tab__panel">
+      <view class="weui-tab__content" wx:if="{{activeIndex == 1}}">
+        <block wx:if="{{lianxiOfBookList.length != 0}}">
+          <block wx:for="{{lianxiOfBookList}}" wx:key="bookId">
+            <view class="collection" id="{{item.bookId}}" hover-class="navigator-hover" bindtap="toErrorItem" wx:key="bookId" data-bookId="{{item.bookId}}">
+              <view class="collection-item"> {{item.bookName}} </view>
+              <view class="icon-label-class"></view>
+              <text class="collection-arrow">{{item.errorCount}}</text>
+            </view>
+          </block>
+        </block>
+        <block wx:else>
+          <view class="metadata">
+            <view>这里还没有题哦~</view>
+          </view>
+        </block>
+      </view>
+      <view class="weui-tab__content" wx:if="{{activeIndex == 2}}">
+        <block wx:if="{{eaxmOfExamList.length != 0}}">
+        <!-- <scroll-view scroll-y class='body-v'> -->
+          <block wx:for="{{eaxmOfExamList}}">
+            <view class="collection" id="{{item.examId}}" hover-class="navigator-hover" bindtap="toErrorItem" wx:key="examId" data-examId="{{item.examId}}">
+              <view class="collection-item"> {{item.examName}} </view>
+              <view class="icon-label-class"></view>
+              <text class="collection-arrow">{{item.errorCount}}</text>
+            </view>
+          </block>
+          <!-- </scroll-view> -->
+        </block>
+        <block wx:else>
+          <view class="metadata">
+            <view>这里还没有题哦~</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>
+</scroll-view>

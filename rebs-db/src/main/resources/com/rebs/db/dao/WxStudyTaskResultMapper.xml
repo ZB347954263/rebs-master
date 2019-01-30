@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.WxStudyTaskResultMapper" >
+  
+  <insert id="insert" parameterType="com.rebs.db.domain.WxStudyTaskResult" >
+    insert into WX_STUDY_TASK_RESULT (TASK_RESULT_ID, EMPLOYEE_ID, TASK_ID, 
+      TASK_DETAIL_ID,HAS_TIME)
+    values (WX_STUDY_TASK_RESULT_SEQ.Nextval, #{employeeId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, 
+      #{taskDetailId,jdbcType=INTEGER},#{hasTime,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectList" resultType="com.rebs.db.domain.WxStudyTaskResult" parameterType="com.rebs.db.domain.WxStudyTaskResult" >
+    SELECT 
+       TASK_RESULT_ID AS taskResultId,
+       EMPLOYEE_ID AS employeeId,
+       TASK_ID AS taskId,
+       TASK_DETAIL_ID AS taskDetailId,
+       HAS_TIME AS hasTime
+    FROM 
+       WX_STUDY_TASK_RESULT
+    <where>
+	   <if test="taskResultId != null and taskResultId != ''">
+	       AND TASK_RESULT_ID = #{taskResultId,jdbcType=INTEGER}
+	   </if>
+	   <if test="employeeId != null and employeeId != ''">
+	       AND EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER}
+	   </if>
+	   <if test="taskId != null and taskId != ''">
+	       AND TASK_ID = #{taskId,jdbcType=INTEGER}
+	   </if>
+	   <if test="taskDetailId != null and taskDetailId != ''">
+	       AND TASK_DETAIL_ID = #{taskDetailId,jdbcType=INTEGER}
+	   </if>
+    </where>
+  </select>
+  
+  <update id="update" parameterType="com.rebs.db.domain.WxStudyTaskResult" >
+    update WX_STUDY_TASK_RESULT
+    set EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER},
+      TASK_ID = #{taskId,jdbcType=INTEGER},
+      TASK_DETAIL_ID = #{taskDetailId,jdbcType=INTEGER},
+      HAS_TIME = #{hasTime,jdbcType=INTEGER}
+    where TASK_RESULT_ID = #{taskResultId,jdbcType=INTEGER}
+  </update>
+</mapper>

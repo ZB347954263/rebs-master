@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: db, core, wx
+  message:
+    encoding: UTF-8
+
+server:
+  port: 8082
+
+logging:
+  level:
+    root:  DEBUG
+    org.springframework:  ERROR
+    org.mybatis:  DEBUG
+    com.rebs.wx:  DEBUG
+    com.rebs:  ERROR
+    javax.activation: ERROR

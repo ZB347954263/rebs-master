@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rebs.db.dao.WxIndexMapper">
+  <!-- 收藏数量 -->
+  <select id="selectIndexData" resultType="com.rebs.db.domain.WxIndex">
+    select (SELECT count(1) from (SELECT 
+      DISTINCT ITEM_ID 
+    FROM 
+      RANDOM_EXAM_EMPLOYEE_COLLECT
+    WHERE 
+      EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER}) temp) AS collectionCount,
+     ( select 
+    count(1)
+    from RANDOM_EXAM_EMPLOYEE_ERROR
+    where TYPE is not null AND EMPLOYEE_ID = #{employeeId,jdbcType=INTEGER} ) as errorCount,
+    
+    (
+    select max(score) from RANDOM_EXAM_RESULT where EXAMINEE_ID = #{employeeId,jdbcType=INTEGER}) AS examMaxScore
+      
+      from dual
+  </select>
+</mapper>

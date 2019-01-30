@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.BookChapterMapper" >
+
+
+
+<resultMap id="cursorBookChapterMap" type="com.rebs.db.domain.BookChapter" >
+    <result column="BOOK_ID" property="bookId" />
+    <result column="CHAPTER_ID" property="chapterId" />
+    <result column="ID_PATH" property="idPath" />
+    <result column="LEVEL_NUM" property="levelNum" />
+    <result column="ORDER_INDEX" property="orderIndex" />
+    <result column="CHAPTER_NAME" property="chapterName" />
+    <result column="REFERENCE_REGULATION" property="referenceRegulation" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="URL" property="url" />
+    <result column="LAST_UPDATE_PERSON" property="lastUpdatePerson" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" />
+    <result column="STUDY_DEMAND" property="studyDemand" />
+    <result column="STUDY_HOURS" property="studyHours" />
+    <result column="HAS_EXAM" property="hasExam" />
+    <result column="EXAM_FORM" property="examForm" />
+    <result column="IS_MOTHER_ITEM" property="isMotherItem" />
+    <result column="NAME_PATH" property="namePath" />
+</resultMap>
+
+<resultMap id="cursorBookChapterMap2" type="com.rebs.db.domain.BookChapter" >
+    <result column="BOOK_ID" property="bookId" />
+    <result column="CHAPTER_ID" property="chapterId" />
+    <result column="ID_PATH" property="idPath" />
+    <result column="LEVEL_NUM" property="levelNum" />
+    <result column="ORDER_INDEX" property="orderIndex" />
+    <result column="CHAPTER_NAME" property="chapterName" />
+    <result column="REFERENCE_REGULATION" property="referenceRegulation" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="URL" property="url" />
+    <result column="LAST_UPDATE_PERSON" property="lastUpdatePerson" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" />
+    <result column="STUDY_DEMAND" property="studyDemand" />
+    <result column="STUDY_HOURS" property="studyHours" />
+    <result column="HAS_EXAM" property="hasExam" />
+    <result column="EXAM_FORM" property="examForm" />
+    <result column="IS_MOTHER_ITEM" property="isMotherItem" />
+    <result column="IS_CANNOT_SEEANSWER" property="isCannotSeeAnswer" />
+    <result column="NAME_PATH" property="namePath" />
+</resultMap>
+
+
+
+
+<!-- 查询课题-->
+<select id="callProcedureUSP_BOOK_CHAPTER_Q"  parameterType="java.util.Map" statementType="CALLABLE">
+ {
+     call USP_BOOK_CHAPTER_Q(
+           #{p_book_id,mode=IN,jdbcType=NUMERIC},
+           #{cur_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorBookChapterMap}
+     )
+  }
+</select>
+
+
+<select id="callProcedureUSP_BOOK_CHAPTER_G"  parameterType="java.util.Map" statementType="CALLABLE">
+ {
+     call USP_BOOK_CHAPTER_G(
+           #{p_CHAPTER_id,mode=IN,jdbcType=NUMERIC},
+           #{p_parent_id,mode=IN,jdbcType=NUMERIC},
+           #{cur_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorBookChapterMap2}
+     )
+  }
+</select>
+  
+  
+  
+  <select id="getBookChapterUrlById"  parameterType="INTEGER" resultType="com.rebs.db.domain.BookChapter">
+     SELECT 
+        CHAPTER_ID AS chapterId,
+        URL  AS url
+     FROM 
+       BOOK_CHAPTER
+     WHERE 
+       CHAPTER_ID = #{chapterId}
+  </select>
+  
+  
+</mapper>

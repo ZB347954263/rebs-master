@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="no-login" wx:if="{{!hasLogin}}">
+    <view class="c">
+      <text>还没有登录</text>
+      <button style="background-image: linear-gradient(to right, #197aaf 0%, #49d1ed 100%);"  bindtap="goLogin">去登录</button>
+    </view>
+</view>
+<view class="login" wx:else="{{hasLogin}}">
+  <swiper class="index-banner" indicator-dots="{{swiper.indicatorDots}}" autoplay="{{swiper.autoplay}}" interval="{{swiper.interval}}" duration="{{swiper.duration}}">
+      <swiper-item wx:for="{{swiper.imgUrls}}" wx:key="{{index}}">
+        <image src="{{item}}" class="slide-image" width="100%" height="300rpx"/>
+      </swiper-item>
+  </swiper>
+
+   <view class="index-exam-inlets row">
+        <view bindtap="tapJiaoCai" class="index-exam-inlets-jiaocai col-hg-6">
+            <view>教材</view>
+            <view class="small">时长: {{bookTime}}分钟</view>
+        </view>
+        <view bindtap="tapKejian"  class="index-exam-inlets-kejian col-hg-6">
+            <view>课件</view>
+            <view class="small">时长: {{courseWareTime}}分钟</view>
+        </view>
+  </view>
+  <view class="index-exam-inlets row">
+        <view bindtap="tapRenWu"  class="index-exam-inlets-renwu col-hg-6">
+            <view>学习任务</view>
+            <view class="small">个数: {{taskCount}}个</view>
+        </view>
+         <view bindtap="tapLianXi"  class="index-exam-inlets-lianxi col-hg-6">
+              <view>练习</view>
+              <view class="small">时长: {{practiceTime}}分钟</view>
+          </view>
+  </view>
+  <view class="index-exam-inlets row">
+        <view bindtap="tapExam" class="index-exam-inlets-kaoshi col-hg-6">
+            <view>考试</view>
+            <view class="small">个数: {{examCount}}个</view>
+        </view>
+          <view bindtap="tapPastExam" class="index-exam-inlets-lishi col-hg-6">
+          <view>历史考试</view>
+          <view class="small">最高成绩: {{examMaxScore}}分</view>
+      </view>
+  </view>
+  <view class="index-exam-inlets row">
+        <view bindtap="tapInletsMk" data-urlParem='{{item.subject}}' class="index-exam-inlets-shoucang col-hg-6">
+            <view>收藏</view>
+            <view class="small">收藏数: {{collectionCount}}</view>
+        </view>
+        <view bindtap="tapInletsError" data-urlParem='{{item.subject}}' class="index-exam-inlets-cuoti col-hg-6">
+            <view>错题</view>
+            <view class="small">错题数: {{errorCount}}</view>
+        </view>
+  </view>
+  
+</view>

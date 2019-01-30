@@ -1,0 +1,38 @@
+<view class="page__hd">
+  <image class="weui-media-box__thumb" src="/static/images/table.png" />
+   <view class="page__title">我的学习任务</view>
+   <view class="page__desc" wx:if="{{studyTaskList.length>0}}">{{studyTaskList.length}}</view>
+   <view class="page__desc" wx:else>0</view>
+  <!-- <image class="weui-media-box__thumb" src="/images/core/lib.png" /> -->
+  <!-- <view class="page__title">姓名：{{userInfo.employeeName}} 职名：{{userInfo.postName}}</view>
+  <view class="page__desc">单位：
+    <block wx:for="{{userInfo.orgNames}}" wx:for-index="index">
+      <block wx:if="{{index != 0}}">{{item}}<block wx:if="{{index != userInfo.orgNames.length-1}}">--</block></block>
+    </block>
+  </view> -->
+</view>
+<view class="page__bd">
+  <view class="weui-panel" wx:if="{{studyTaskList.length>0}}">
+    <view class="weui-panel__hd">任务名称/有效时间</view>
+    <view class="weui-panel__bd" >
+      <view class="weui-media-box weui-media-box_appmsg" bindtap="onClickStudy" hover-class="weui-cell_active" data-taskId="{{item.taskId}}" wx:for="{{studyTaskList}}" wx:key="taskId">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          {{index + 1}}
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{item.taskName}}</view>
+          <view class="weui-media-box__desc">{{item.beginTime}}—{{item.endTime}}</view>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="zan-capsule zan-capsule" style="float:right;">
+            <!-- <view class="zan-capsule__left"></view> -->
+            <!-- <view class="zan-capsule__right">借阅次数</view> -->
+             <view class="classify-exam-num">
+              <view class="icon-label-class"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,44 @@
+/* pages/collection/collection.wxss */
+page{
+  background-color:#f0f0f0;
+}
+
+.collection-all{
+    display: flex;
+    padding: 25rpx;
+    align-items: center;
+    flex-direction: row;
+    background-color:#fff;
+    margin-top: 25rpx;
+    margin-bottom: 25rpx;
+}
+.collection{
+    display: flex;
+    padding: 25rpx;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1rpx solid #f0f0f0;
+    background-color:#fff;
+}
+
+.collection-item{
+    flex: 1;
+    font-size: 30rpx;
+    padding-left:15rpx;
+}
+
+.collection-arrow{
+    width: 32rpx;
+    height: 32rpx;
+    color: green;
+    font-size: 30rpx;
+    padding-left:10rpx;
+}
+
+.icon-label-class{
+  display: inline-block;
+  width: 20rpx;
+  height: 20rpx;
+  margin-left: 4rpx;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAASCAYAAABit09LAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAAsSAAALEgHS3X78AAAA4ElEQVQoz43Rr0qEQRiF8We/9SYMgoIIFoPFC7CsxWSyaJHTDGI2LqggosUHDGtQEEyLYcU/WC0Gr8gyGtZvdn3j8GPeOWdQ79UeU6YBzoAbdXMiTPIBbABX6takG0nyCfSAC3W7Cgv+AtaBY3V3HHbGD9Ql4BnoJ7EKC14AXoDzJJdVWPBcwddJTquw4FngFbht+N90u1NWvwGDJP1amPmy8jdM04IWgXfg5Af9Sa0uA0/AUZJBa+HqCjACDpPctf6Mugo8AvtJHtre3VHXgCGwl2RYa2EGOAB2kowmFfkNyq5O87vOCYoAAAAASUVORK5CYII=")no-repeat center/10rpx 18rpx;
+}

@@ -1,0 +1,2 @@
+/*引入exam的css文件*/
+@import "../exam/exam.wxss";

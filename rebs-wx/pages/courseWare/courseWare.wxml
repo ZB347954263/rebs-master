@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="search-view" style="background:'-webkit-linear-gradient(top, rgba(105,195,170, 1), rgba(105,195,170, 0.3))'">
+    <view class="search-content">
+      <image src="/static/images/search.png" class="search-icon" />
+      <input placeholder="课件搜索" class="search-input" maxlength="30" confirm-type="搜索" bindinput='bindKeyInput'>
+      </input>
+      <button class='search-btn' bindtap="searchByCourseWare">搜索
+      </button>
+    </view>
+  </view>
+
+  <!-- <view class="search">
+    <input class="input" bindinput="bindKeyInput" placeholder="教材搜索" />
+    <view bindtap="searchByBookName" class="icon"></view>
+  </view> -->
+
+  <view class="catalog ca-left">
+    <scroll-view class="nav" scroll-y="true">
+      <view class="item {{ currentCourseWareType.courseWareTypeId == item.courseWareTypeId ? 'active' : ''}}" wx:for="{{courseWareTypeList}}" wx:key="courseWareTypeId" data-courseWareTypeId="{{item.courseWareTypeId}}"  data-index="{{index}}" bindtap="switchCate">{{item.courseWareTypeName}}</view>
+    </scroll-view>
+    <!-- <scroll-view class="cate" scroll-y="true">
+    <view class="orders">
+      <view class="order">
+            <view class="goods" wx:for="{{bookList}}" wx:key="bookId"  data-bookId="{{item.bookId}}" data-index="{{index}}" bindtap="getBook">
+                <view class="img">{{index+1}}</view>
+                <view class="info"><text class="name">{{item.bookName}}</text>
+                 <text class="number">{{item.publishOrgName}}--{{item.revisers}}</text>
+                </view>
+            </view>
+      </view>
+    </view>
+    </scroll-view> -->
+  </view>
+
+  <view class="catalog ca-right">
+    <!-- <scroll-view class="nav" scroll-y="true">
+        <view class="item {{ currentKnowledge.knowledgeId == item.knowledgeId ? 'active' : ''}}" wx:for="{{knowledgeList}}" wx:key="knowledgeId"  data-knowledgeId="{{item.knowledgeId}}" data-index="{{index}}" bindtap="switchCate">{{item.knowledgeName}}</view>
+    </scroll-view> -->
+    <scroll-view class="cate" scroll-y="true">
+      <view class="orders">
+        <view class="order">
+          <block wx:if="{{courseWareList.length != 0}}">
+            <view class="goods" wx:for="{{courseWareList}}" wx:key="id" data-id="{{item.courseWareId}}" data-title="{{item.courseWareName}}" data-index="{{index}}" bindtap="getCourseWareVideo">
+            <view class="img">{{index+1}}</view>
+            <view class="info">
+              <text class="name">{{item.courseWareName}}</text>
+              <text class="number">{{item.provideOrgName}}</text>
+            </view>
+          </view>
+          </block>
+          <block wx:else>
+            <view class="no-data">
+              <view>暂无数据</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.WxLoginTimeMapper" >
+  
+  <select id="selectByPrimaryKey" resultType="com.rebs.db.domain.WxLoginTime" parameterType="java.lang.Integer" >
+    select 
+       PRACTICE_TIME as practiceTime,
+       LOGIN_TIME as loginTime,
+       EMPLOYEE_ID as employeeId,
+       COURSEWARE_TIME as courseWareTime,
+       BOOK_TIME as bookTime
+     from WX_LOGIN_TIME
+     where EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL}
+  </select>
+  
+  <insert id="insert" parameterType="com.rebs.db.domain.WxLoginTime" >
+    insert into WX_LOGIN_TIME (EMPLOYEE_ID, PRACTICE_TIME, LOGIN_TIME)
+    values (#{employeeId,jdbcType=DECIMAL}, #{practiceTime,jdbcType=DECIMAL}, #{loginTime,jdbcType=DECIMAL})
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.rebs.db.domain.WxLoginTime" >
+    update WX_LOGIN_TIME
+    <set >
+      <if test="practiceTime != null" >
+        PRACTICE_TIME = #{practiceTime,jdbcType=DECIMAL},
+      </if>
+      <if test="loginTime != null" >
+        LOGIN_TIME = #{loginTime,jdbcType=DECIMAL},
+      </if>
+      <if test="courseWareTime != null" >
+        COURSEWARE_TIME = #{courseWareTime,jdbcType=DECIMAL},
+      </if>
+      <if test="bookTime != null" >
+        BOOK_TIME = #{bookTime,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where EMPLOYEE_ID = #{employeeId,jdbcType=DECIMAL}
+  </update>
+</mapper>

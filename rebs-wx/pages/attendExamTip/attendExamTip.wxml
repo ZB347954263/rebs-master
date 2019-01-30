@@ -1,0 +1,24 @@
+<view class="con-main">
+  <view class="title">
+    考试信息
+  </view>
+  <view class="simulate-info">
+    <view> 考试名称：{{randomExam.examName}}</view>
+    <view> 题目数量：{{randomExamSubject.totalScore}}题</view>
+    <view> 考试时间：{{randomExam.examTime}}分钟</view>
+    <view> 合格标准：满分{{randomExamSubject.itemCount}}分，{{randomExam.passScore}}分及格</view>
+  </view>
+  <view class="title">
+    考生信息
+  </view>
+  <view class="simulate-info">
+    <view> 姓名：{{examUserInfo.employeeName}}</view>
+    <view> 性别：{{examUserInfo.sex}}</view>
+    <view> 职名：{{examUserInfo.postName}}</view>
+    <view> 岗位证号：{{examUserInfo.workNo}}</view>
+    <view> 身份证号：{{examUserInfo.identityCardno}}</view>
+  </view>
+</view>
+
+<!-- ../../pages/answer_simulate_info/simulate_info?subject={{subject}}&type={{type}} -->
+<view  class="simulate-btn" bindtap='toExam'>开始考试</view>

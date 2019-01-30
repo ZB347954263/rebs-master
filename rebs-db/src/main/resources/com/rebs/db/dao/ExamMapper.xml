@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.ExamMapper" >
+
+<resultMap id="examMap" type="com.rebs.db.domain.Exam" >
+    <result column="Exam_ID" property="examid" />
+    <result column="Category_ID" property="categoryid" />
+    <result column="Org_Id" property="orgid" />
+    <result column="Exam_Type_Id" property="examtypeid" />
+    <result column="type_Name" property="typename" />
+    <result column="Category_NAME" property="categoryname" />
+    <result column="Exam_Name" property="examname" />
+    <result column="Exam_Time" property="examtime" />
+    <result column="Begin_Time" property="begintime" />
+    <result column="End_Time" property="endtime" />
+    <result column="Exam_Mode_Id" property="exammodeid" />
+    <result column="Min_Exam_Times" property="minexamtimes" />
+    <result column="Max_Exam_Times" property="maxexamtimes" />
+    <result column="Convert_Total_Score" property="converttotalscore" />
+    <result column="Pass_Score" property="passscore" />
+    <result column="Auto_Save_Interval" property="autosaveinterval" />
+    <result column="Is_Under_Control" property="isundercontrol" />
+    <result column="Is_Auto_Score" property="isautoscore" />
+    <result column="Can_See_Answer" property="canseeanswer" />
+    <result column="Can_See_Score" property="canseescore" />
+    <result column="Is_Public_Score" property="ispublicscore" />
+    <result column="status_Id" property="statusid" />
+    <result column="create_Person" property="createperson" />
+    <result column="create_Time" property="createtime" />
+    <result column="description" property="description" />
+    <result column="MEMO" property="memo" />
+    <result column="paper_Id" property="paperid" />
+    <result column="Create_Mode" property="createmode" />
+    <result column="EXAMINEE_COUNT" property="examineecount" />
+    <result column="EXAM_AVERAGE_SCORE" property="examaveragescore" />
+    <result column="Exam_Type" property="examtype" />
+    <result column="DOWNLOADED" property="downloaded" />
+    <result column="EXAM_STYLE_NAME" property="examstylename" />
+    <result column="START_MODE_NAME" property="startmodename" />
+</resultMap>
+
+<!-- 根据userId查询考试列表-->
+<select id="callProcedureWX_USP_Exam_By_user" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call WX_USP_Exam_By_user(
+            #{P_USER_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_ORG_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_SERVER_NO,mode=IN,jdbcType=NUMERIC},
+            #{P_EXAM_MODE_ID,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=examMap}
+        )
+    }
+</select>
+
+<!-- 查询考试规则-->
+<select id="getExamTips" parameterType="java.lang.Integer" resultType="com.rebs.db.domain.SystemExam">
+    select 
+        SYSTEM_EXAM_ID as systemExamId,
+        EXAM_MESSAGE as examMessage,
+        EXAM_TIME as examTime,
+        EXAM_NUMBER as examNumber
+    from 
+        System_Exam 
+    where 
+        System_Exam_ID = #{systemExamId,jdbcType=NUMERIC}
+</select>
+
+<resultMap id="BaseResultMap" type="com.rebs.db.domain.Employee" >
+    <id column="EMPLOYEE_ID" property="employeeId" jdbcType="DECIMAL" />
+    <result column="ORG_ID" property="orgId" jdbcType="DECIMAL" />
+    <result column="POST_NO" property="postNo" jdbcType="VARCHAR" />
+    <result column="EMPLOYEE_NAME" property="employeeName" jdbcType="VARCHAR" />
+    <result column="POST_ID" property="postId" jdbcType="DECIMAL" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="NATIVE_PLACE" property="nativePlace" jdbcType="VARCHAR" />
+    <result column="FOLK" property="folk" jdbcType="VARCHAR" />
+    <result column="WEDDING" property="wedding" jdbcType="DECIMAL" />
+    <result column="BEGIN_DATE" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="WORK_PHONE" property="workPhone" jdbcType="VARCHAR" />
+    <result column="HOME_PHONE" property="homePhone" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="POST_CODE" property="postCode" jdbcType="VARCHAR" />
+    <result column="ISONPOST" property="isonpost" jdbcType="DECIMAL" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+    <result column="IS_GROUP_LEADER" property="isGroupLeader" jdbcType="DECIMAL" />
+    <result column="TECHNICIAN_TYPE_ID" property="technicianTypeId" jdbcType="DECIMAL" />
+    <result column="WORK_NO" property="workNo" jdbcType="VARCHAR" />
+    <result column="PINYIN_CODE" property="pinyinCode" jdbcType="VARCHAR" />
+    <result column="LOGIN_COUNT" property="loginCount" jdbcType="DECIMAL" />
+    <result column="LOGIN_TIME" property="loginTime" jdbcType="DECIMAL" />
+    <result column="IDENTITY_CARDNO" property="identityCardno" jdbcType="VARCHAR" />
+    <result column="POLITICAL_STATUS_ID" property="politicalStatusId" jdbcType="DECIMAL" />
+    <result column="JOIN_RAIL_DATE" property="joinRailDate" jdbcType="TIMESTAMP" />
+    <result column="EDUCATION_LEVEL_ID" property="educationLevelId" jdbcType="DECIMAL" />
+    <result column="EMPLOYEE_TYPE_ID" property="employeeTypeId" jdbcType="DECIMAL" />
+    <result column="SECOND_POST_ID" property="secondPostId" jdbcType="DECIMAL" />
+    <result column="THIRD_POST_ID" property="thirdPostId" jdbcType="DECIMAL" />
+    <result column="TECHNICAL_TITLE_ID" property="technicalTitleId" jdbcType="DECIMAL" />
+    <result column="WORKGROUPLEADER_TYPE_ID" property="workgroupleaderTypeId" jdbcType="DECIMAL" />
+    <result column="WORKGROUPLEADER_ORDER_DATE" property="workgroupleaderOrderDate" jdbcType="TIMESTAMP" />
+    <result column="EDUCATION_EMPLOYEE_TYPE_ID" property="educationEmployeeTypeId" jdbcType="DECIMAL" />
+    <result column="COMMITTEE_HEAD_SHIP_ID" property="committeeHeadShipId" jdbcType="DECIMAL" />
+    <result column="ISREGISTERED" property="isregistered" jdbcType="DECIMAL" />
+    <result column="EMPLOYEE_TRANSPORT_TYPE_ID" property="employeeTransportTypeId" jdbcType="DECIMAL" />
+    <result column="AWARD_DATE" property="awardDate" jdbcType="TIMESTAMP" />
+    <result column="COULD_POST_ID" property="couldPostId" jdbcType="VARCHAR" />
+    <result column="TECHNICAL_DATE" property="technicalDate" jdbcType="TIMESTAMP" />
+    <result column="TECHNICAL_TITLE_DATE" property="technicalTitleDate" jdbcType="TIMESTAMP" />
+    <result column="POST_DATE" property="postDate" jdbcType="TIMESTAMP" />
+    <result column="GRADUATE_UNIVERSITY" property="graduateUniversity" jdbcType="VARCHAR" />
+    <result column="GRADUATE_DATE" property="graduateDate" jdbcType="TIMESTAMP" />
+    <result column="STUDY_MAJOR" property="studyMajor" jdbcType="VARCHAR" />
+    <result column="UNIVERSITY_TYPE" property="universityType" jdbcType="DECIMAL" />
+    <result column="TECHNICAL_CODE" property="technicalCode" jdbcType="VARCHAR" />
+    <result column="SAFE_LEVEL_ID" property="safeLevelId" jdbcType="DECIMAL" />
+    <result column="NOW_POST_ID" property="nowPostId" jdbcType="DECIMAL" />
+    <result column="POST_NAME" property="postName" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+</resultMap>
+<!-- 考试人信息 -->
+<select id="getExamUserInfo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+        a.*,
+        b.POST_NAME,
+        GetOrgName(a.ORG_ID) as ORG_NAME 
+    FROM Employee a
+    LEFT JOIN post b on a.post_id = b.post_id
+    where a.Employee_ID = #{employeeID,jdbcType=NUMERIC}
+</select>
+
+<resultMap id="examInfoMap" type="com.rebs.db.domain.RandomExam" >
+    <result column="RANDOM_EXAM_ID" property="randomExamId" />
+    <result column="ORG_ID" property="orgId" />
+    <result column="CATEGORY_ID" property="categoryId" />
+    <result column="EXAM_TYPE_ID" property="examTypeId" />
+    <result column="EXAM_NAME" property="examName" />
+    <result column="EXAM_TIME" property="examTime" />
+    <result column="BEGIN_TIME" property="beginTime" />
+    <result column="END_TIME" property="endTime" />
+    <result column="EXAM_MODE_ID" property="examModeId" />
+    <result column="MIN_EXAM_TIMES" property="minExamTimes" />
+    <result column="MAX_EXAM_TIMES" property="maxExamTimes" />
+    <result column="CONVERT_TOTAL_SCORE" property="convertTotalScore" />
+    <result column="PASS_SCORE" property="passScore" />
+    <result column="AUTO_SAVE_INTERVAL" property="autoSaveInterval" />
+    <result column="IS_UNDER_CONTROL" property="isUnderControl" />
+    <result column="IS_AUTO_SCORE" property="isAutoScore" />
+    <result column="CAN_SEE_ANSWER" property="canSeeAnswer" />
+    <result column="CAN_SEE_SCORE" property="canSeeScore" />
+    <result column="IS_PUBLIC_SCORE" property="isPublicScore" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="STATUS_ID" property="statusId" />
+    <result column="CREATE_PERSON" property="createPerson" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="MEMO" property="memo" />
+    <result column="DOWNLOADED" property="downloaded" />
+    <result column="START_MODE" property="startMode" />
+    <result column="IS_START" property="isStart" />
+    <result column="HAS_PAPER" property="hasPaper" />
+    <result column="RANDOM_EXAM_CODE" property="randomExamCode" />
+    <result column="VERSION" property="version" />
+    <result column="EXAM_STYLE" property="examStyle" />
+    <result column="IS_UPLOAD" property="isUpload" />
+    <result column="IS_COMPUTEREXAM" property="isComputerexam" />
+    <result column="POST_ID" property="postId" />
+    <result column="TECHNICIAN_TYPE_ID" property="technicianTypeId" />
+    <result column="IS_GROUP_LEADER" property="isGroupLeader" />
+    <result column="HAS_TRAIN_CLASS" property="hasTrainClass" />
+    <result column="IS_RESET" property="isReset" />
+    <result column="RANDOM_EXAM_MODULAR_TYPE_ID" property="randomExamModularTypeId" />
+    <result column="IS_REDUCE_ERROR" property="isReduceError" />
+    <result column="IS_ALL_ARRANGE" property="isAllArrange" />
+    <result column="SAVE_DATE" property="saveDate" />
+    <result column="SAVE_STATUS" property="saveStatus" />
+    <result column="CATEGORY_NAME" property="categoryName" />
+</resultMap>
+<!-- 查询考试基本信息-->
+<select id="getExamInfoUSP_Random_Exam_G" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_RANDOM_EXAM_G(
+            #{P_RANDOM_EXAM_ID,mode=IN,jdbcType=NUMERIC},
+<!--             #{EXAM_MODE_ID,mode=IN,jdbcType=NUMERIC}, -->
+            #{CUR_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=examInfoMap}
+        )
+    }
+</select>
+
+<resultMap id="randomExamSubject" type="com.rebs.db.domain.RandomExamSubject" >
+    <result column="RANDOM_EXAM_SUBJECT_ID" property="randomExamSubjectId" />
+    <result column="RANDOM_EXAM_ID" property="randomExamId" />
+    <result column="ORDER_INDEX" property="orderIndex" />
+    <result column="ITEM_TYPE_ID" property="itemTypeId" />
+    <result column="SUBJECT_NAME" property="subjectName" />
+    <result column="REMARK" property="remark" />
+    <result column="ITEM_COUNT" property="itemCount" />
+    <result column="UNIT_SCORE" property="unitScore" />
+    <result column="TOTAL_SCORE" property="totalScore" />
+    <result column="MEMO" property="memo" />
+    <result column="TYPE_NAME" property="typeName" />
+</resultMap>
+<!-- 获取考试题数和分数-->
+<select id="callUSP_Random_Exam_SUBJECT_Q" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_Exam_SUBJECT_Q(
+            #{P_RANDOM_EXAM_ID,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=randomExamSubject}
+        )
+    }
+</select>
+
+
+<resultMap id="randomExamSubjectItem" type="com.rebs.db.domain.RandomExamItem" >
+    <result column="RANDOM_EXAM_ITEM_ID" property="randomExamItemId" />
+    <result column="ITEM_ID" property="itemId" />
+    <result column="BOOK_ID" property="bookId" />
+    <result column="CHAPTER_ID" property="chapterId" />
+    <result column="CATEGORY_ID" property="categoryId" />
+    <result column="ORG_ID" property="orgId" />
+    <result column="TYPE_ID" property="typeId" />
+    <result column="COMPLETE_TIME" property="completeTime" />
+    <result column="DIFFICULTY_ID" property="difficultyId" />
+    <result column="SOURCE" property="source" />
+    <result column="VERSION" property="version" />
+    <result column="SCORE" property="score" />
+    <result column="CONTENT" property="content" />
+    <result column="ANSWER_COUNT" property="answerCount" />
+    <result column="SELECT_ANSWER" property="selectAnswer" />
+    <result column="STANDARD_ANSWER" property="standardAnswer" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="OUTDATE_DATE" property="outdateDate" />
+    <result column="USED_COUNT" property="usedCount" />
+    <result column="STATUS_ID" property="statusId" />
+    <result column="CREATE_PERSON" property="createPerson" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="MEMO" property="memo" />
+    <result column="SUBJECT_ID" property="subjectId" />
+    <result column="RANDOM_EXAM_ID" property="randomExamId" />
+    <result column="STRATEGY_ID" property="strategyId" />
+    <result column="ERROR_DATE" property="errorDate" />
+    <result column="WEIGHT" property="weight" />
+    <result column="PARENT_ITEM_ID" property="parentItemId" />
+    <result column="MOTHER_CODE" property="motherCode" />
+    <result column="ITEM_INDEX" property="itemIndex" />
+    <result column="TYPE_NAME" property="typeName" />
+    <result column="ANSWER" property="answer" />
+</resultMap>
+<!-- 获取考试题目-->
+<select id="callUSP_random_exam_ITEM_G_Cur" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_RANDOM_EXAM_ITEM_G_CUR(
+            #{P_SUBJECT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_YEAR,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=randomExamSubjectItem}
+        )
+    }
+</select>
+
+
+<resultMap id="randomExamResultCurrent" type="com.rebs.db.domain.RandomExamResultCurrent" >
+    <result column="RANDOM_EXAM_RESULT_ID" property="randomExamResultId" />
+    <result column="ORG_ID" property="orgid" />
+    <result column="RANDOM_EXAM_ID" property="randomExamId" />
+    <result column="EXAMINEE_ID" property="examineeId" />
+    <result column="BEGIN_TIME" property="beginTime" />
+    <result column="CURRENT_TIME" property="currentTime" />
+    <result column="END_TIME" property="endTime" />
+    <result column="EXAM_TIME" property="examTime" />
+    <result column="AUTO_SCORE" property="autoScore" />
+    <result column="SCORE" property="score" />
+    <result column="CORRECT_RATE" property="correctRate" />
+    <result column="IS_PASS" property="isPass" />
+    <result column="STATUS_ID" property="statusId" />
+    <result column="MEMO" property="memo" />
+    <result column="EXAM_SEQ_NO" property="examSeqNo" />
+    <result column="ORG_NAME" property="orgName" />
+    <result column="EXAM_NAME" property="examName" />
+    <result column="EXAMINEE_NAME" property="examineeName" />
+    <result column="STATUS_NAME" property="statusName" />
+    <result column="WORK_NO" property="workNo" />
+    <result column="POST_NAME" property="postName" />
+</resultMap>
+<!-- 获取考试题目的参数-->
+<select id="callUSP_Random_EXAM_RESULT_Cur_N" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_EXAM_RESULT_Cur_N(
+            #{P_EMPLOYEE_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_RANDOM_EXAM_ID,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=randomExamResultCurrent}
+        )
+    }
+</select>
+
+<!-- 获取考试题目的参数-->
+<select id="callUSP_Random_EXAM_ANSWER_Cur_U" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_EXAM_ANSWER_Cur_U(
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_RANDOM_EXAM_ITEM_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_ANSWER,mode=IN,jdbcType=VARCHAR},
+            #{P_EXAM_TIME,mode=IN,jdbcType=NUMERIC},
+            #{P_JUDGE_REMARK,mode=IN,jdbcType=VARCHAR}
+        )
+    }
+</select>
+
+<!-- 获取考试题目的参数-->
+<select id="callUSP_Random_EXAM_RESULT_Cur_U" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_EXAM_RESULT_Cur_U(
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_ORG_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_RANDOM_EXAM_ID,mode=IN,jdbcType=VARCHAR},
+            #{P_EXAMINEE_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_BEGIN_TIME,mode=IN,jdbcType=DATE},
+            #{P_CURRENT_TIME,mode=IN,jdbcType=DATE},
+            #{P_END_TIME,mode=IN,jdbcType=DATE},
+            #{P_EXAM_TIME,mode=IN,jdbcType=NUMERIC},
+            #{P_AUTO_SCORE,mode=IN,jdbcType=DECIMAL},
+            #{P_SCORE,mode=IN,jdbcType=DECIMAL},
+            #{P_CORRECT_RATE,mode=IN,jdbcType=DECIMAL},
+            #{P_IS_PASS,mode=IN,jdbcType=NUMERIC},
+            #{P_STATUS_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_MEMO,mode=IN,jdbcType=VARCHAR},
+            #{P_EXAM_SEQ_NO,mode=IN,jdbcType=NUMERIC}
+        )
+    }
+</select>
+
+
+<resultMap id="removeResultAnswerCurrent" type="com.rebs.db.domain.RandomExamResultAnswerCurrent" >
+    <result column="P_NEXT_ID" property="randomExamResultId" />
+</resultMap>
+<!-- 将实时考试记录（临时表）转存到中间考试成绩表和答卷表-->
+<select id="callUSP_Random_EXAM_Result_Re_C" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_EXAM_Result_Re_C(
+            #{P_RANDOM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_NEXT_ID, mode=OUT, jdbcType=NUMERIC}
+        )
+    }
+</select>
+
+<!-- 修改考试信息-->
+<update id="upDateRandomExamResultCurrent" parameterType="com.rebs.db.domain.RandomExamResultCurrent">
+    update 
+        Random_Exam_Result_Current 
+    set Exam_Time = Exam_Time-180 
+    where 
+        Random_Exam_ID = #{randomExamId,jdbcType=NUMERIC}
+        and Examinee_ID = #{examineeId,jdbcType=NUMERIC}
+</update>
+
+
+
+<resultMap id="randomExamResultTemp" type="com.rebs.db.domain.RandomExamResultTemp" >
+    <result column="RANDOM_EXAM_RESULT_ID" property="randomExamResultId" />
+    <result column="ORG_ID" property="orgid" />
+    <result column="RANDOM_EXAM_ID" property="randomExamId" />
+    <result column="EXAMINEE_ID" property="examineeId" />
+    <result column="BEGIN_TIME" property="beginTime" />
+    <result column="CURRENT_TIME" property="currentTime" />
+    <result column="END_TIME" property="endTime" />
+    <result column="EXAM_TIME" property="examTime" />
+    <result column="AUTO_SCORE" property="autoScore" />
+    <result column="SCORE" property="score" />
+    <result column="CORRECT_RATE" property="correctRate" />
+    <result column="IS_PASS" property="isPass" />
+    <result column="STATUS_ID" property="statusId" />
+    <result column="MEMO" property="memo" />
+    <result column="RANDOM_EXAM_RESULT_ID_STATION" property="randomExamResultIdStation" />
+    <result column="EXAM_NAME" property="examName" />
+    <result column="EXAMINEE_NAME" property="examineeName" />
+    <result column="STATUS_NAME" property="statusName" />
+    <result column="WORK_NO" property="workNo" />
+    <result column="ORG_NAME" property="orgName" />
+    <result column="POST_NAME" property="postName" />
+</resultMap>
+<!-- 获取考试结果-->
+<select id="callUSP_Random_EXAM_RESULT_s_Temp" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_EXAM_RESULT_s_Temp(
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=randomExamResultTemp}
+        )
+    }
+</select>
+
+
+<resultMap id="randomExamResultAnswerCurrent" type="com.rebs.db.domain.RandomExamResultAnswerCurrent" >
+    <result column="RANDOM_EXAM_RESULT_ID" property="randomExamResultId" />
+    <result column="RANDOM_EXAM_ITEM_ID" property="randomExamItemId" />
+    <result column="ANSWER" property="answer" />
+    <result column="EXAM_TIME" property="examTime" />
+    <result column="JUDGE_SCORE" property="judgeScore" />
+    <result column="JUDGE_STATUS_ID" property="judgeStatusId" />
+    <result column="JUDGE_REMARK" property="judgeRemark" />
+    <result column="RANDOM_EXAM_RESULT_ANSWER_ID" property="randomExamResultAnswerId" />
+    <result column="SELECT_ANSWER" property="selectAnswer" />
+    <result column="STANDARD_ANSWER" property="standardAnswer" />
+    <result column="STATUS_NAME" property="statusName" />
+</resultMap>
+<!-- 获取每一题-->
+<select id="callUSP_Random_EXAM_ANSWER_Cur_G1" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_Random_EXAM_ANSWER_Cur_G1(
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_ITEM_ID,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=randomExamResultAnswerCurrent}
+        )
+    }
+</select>
+
+<!-- 获取当前考生的考试-->
+<select id="callUSP_Random_EXAM_RESULT_Cur_G" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_RANDOM_EXAM_RESULT_CUR_G(
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=randomExamResultCurrent}
+        )
+    }
+</select>
+
+
+  
+</mapper>

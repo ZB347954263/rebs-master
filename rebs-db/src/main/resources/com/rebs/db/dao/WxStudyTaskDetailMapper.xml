@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.WxStudyTaskDetailMapper" >
+  <select id="selectList" resultType="com.rebs.db.domain.WxStudyTaskDetail" parameterType="com.rebs.db.domain.WxStudyTaskDetail" >
+    SELECT 
+       t1.TASK_DETAIL_ID AS taskDetailId,
+       t1.TASK_ID AS taskId,
+       t1.BOOK_ID AS bookId,
+       t1.COURSEWARE_ID AS courseWareId,
+       t1.NEED_TIME AS needTime,
+       (CASE WHEN t1.BOOK_ID is not null THEN 1
+       WHEN t1.COURSEWARE_ID is not null THEN 2 END) AS type,
+       t2.BOOK_NAME AS bookName,
+       t3.COURSEWARE_NAME AS courseWareName,
+       t4.HAS_TIME AS hasTime
+    FROM 
+       WX_STUDY_TASK_DETAIL t1
+    LEFT JOIN BOOK t2 ON t2.BOOK_ID = t1.BOOK_ID
+    LEFT JOIN COURSEWARE t3 ON t3.COURSEWARE_ID = t1.COURSEWARE_ID
+    LEFT JOIN WX_STUDY_TASK_RESULT t4 ON t4.TASK_DETAIL_ID = t1.TASK_DETAIL_ID
+    <where> 
+       <if test="taskDetailId != null and taskDetailId != ''">
+	       AND t1.TASK_DETAIL_ID = #{taskDetailId,jdbcType=INTEGER}
+	   </if>
+	   <if test="taskId != null and taskId != ''">
+	       AND t1.TASK_ID = #{taskId,jdbcType=INTEGER}
+	   </if>
+	</where>
+	ORDER BY t1.TASK_DETAIL_ID DESC
+  </select>
+</mapper>

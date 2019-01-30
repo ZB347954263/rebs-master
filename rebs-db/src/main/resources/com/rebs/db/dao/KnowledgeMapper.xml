@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.KnowledgeMapper" >
+  <!-- 查询第一级知识体系 -->
+  <select id="getKonwledgeList" resultType="com.rebs.db.domain.Knowledge" parameterType="com.rebs.db.domain.Knowledge" >
+    select 
+          t1.KNOWLEDGE_ID as knowledgeId,
+	      t1.PARENT_ID as parentId,
+	      t1.ID_PATH as idPath,
+	      t1.LEVEL_NUM as levelNum,
+	      t1.ORDER_INDEX as orderIndex,
+	      t1.KNOWLEDGE_NAME as knowledgeName,
+	      t1.DESCRIPTION as description,
+	      t1.MEMO as memo,
+	      t1.IS_TEMPLATE as isTemplate,
+	      t1.IS_PROMOTION as isPromotion
+    from KNOWLEDGE t1
+    where 1=1
+    <if test="levelNum != null and levelNum !=''">
+       and t1.LEVEL_NUM = #{levelNum}
+    </if>
+    <if test="knowledgeId != null and knowledgeId !=''">
+       and t1.KNOWLEDGE_ID = #{knowledgeId}
+    </if>
+    <if test="parentId != null and parentId !=''">
+       and t1.PARENT_ID = #{parentId}
+    </if>
+    ORDER BY t1.LEVEL_NUM, t1.ORDER_INDEX
+  </select>
+  
+  
+  <resultMap id="cursorKnowledgeMap" type="com.rebs.db.domain.Knowledge" >
+    <result column="KNOWLEDGE_ID" property="knowledgeId" />
+    <result column="PARENT_ID" property="parentId" />
+    <result column="ID_PATH" property="idPath" />
+    <result column="LEVEL_NUM" property="levelNum" />
+    <result column="ORDER_INDEX" property="orderIndex" />
+    <result column="KNOWLEDGE_NAME" property="knowledgeName" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="MEMO" property="memo" />
+    <result column="IS_TEMPLATE" property="isTemplate" />
+    <result column="IS_PROMOTION" property="isPromotion" />
+</resultMap>
+
+<select id="callProcedureUSP_KNOWLEDGE_G"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_RANGE_ORG_S(
+               #{p_Knowledge_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_out, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorKnowledgeMap}
+         )
+      }
+  </select>
+  
+</mapper>

@@ -1,0 +1,19 @@
+/*引入exam的css文件*/
+@import "../exam/exam.wxss";
+/* .weui-media-box__desc{
+  display: flex;
+} */
+
+.weui-media-box__bd_in-appmsg {
+  -webkit-box-flex:1;
+  -webkit-flex:1;
+  flex:1;
+  min-width:0;
+}
+.weui-media-box__bd_in-appmsg.desc {
+  -webkit-box-flex:3;
+  -webkit-flex:3;
+  flex:3;
+  min-width:0;
+}
+

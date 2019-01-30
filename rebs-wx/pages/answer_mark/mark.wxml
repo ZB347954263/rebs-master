@@ -1,0 +1,21 @@
+<view class="score-header">
+    <view class="score-toux">
+     <open-data class="userinfo-avatar" background-size="cover" type="userAvatarUrl"></open-data>
+      <!-- <image mode="aspectFill" src="{{userInfo.avatarUrl}}"></image> -->
+    </view>
+    <view class="score-name">{{examResult.examineeName}}</view>
+    <view class="score-name">{{examResult.orgName}}</view>
+    <view class="score-info">
+        <view class="score-num" wx:if="{{randomExam.canSeeScore == 1}}">分数：<view class="red">{{examResult.score}}</view>分</view>
+        <view class="score-time">用时：{{time}}</view>
+    </view>
+</view>
+<view class="score-chao-tip">{{randomExam.examName}}</view>
+<view class="score-chao-box {{examResult.score >= randomExam.passScore?'active':''}}" wx:if="{{randomExam.isPublicScore == 1}}">
+    <view class="score-chao"></view>
+    <view class="score-img"></view>
+</view>
+<view class="score-operation">
+    <!-- <navigator url="../../pages/answer_simulate_tip/simulate_tip?subject={{subject}}&type=mnks" redirect class="score-operation-btn">重新考试  </navigator> -->
+    <view bindtap='gotoWDCT' class="score-operation-btn">错题回顾</view>
+</view>

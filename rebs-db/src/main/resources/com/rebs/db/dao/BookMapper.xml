@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.BookMapper" >
+
+<resultMap id="cursorMap" type="com.rebs.db.domain.Book" >
+    <result column="BOOK_ID" property="bookId" />
+    <result column="BOOK_NAME" property="bookName" />
+    <result column="KNOWLEDGE_ID" property="knowledgeId" />
+    <result column="BOOK_NO" property="bookNo" />
+    <result column="PUBLISH_ORG" property="publishOrg" />
+    <result column="PUBLISH_DATE" property="publishDate" />
+    <result column="AUTHORS" property="authors" />
+    <result column="REVISERS" property="revisers" />
+    <result column="BOOKMAKER" property="bookmaker" />
+    <result column="COVER_DESIGNER" property="coverDesigner" />
+    <result column="KEYWORDS" property="keywords" />
+    <result column="PAGE_COUNT" property="pageCount" />
+    <result column="WORD_COUNT" property="wordCount" />
+    <result column="DISCRIPTION" property="discription" />
+    <result column="URL" property="url" />
+    <result column="LAST_UPDATE_PERSON" property="lastUpdatePerson" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" />
+    <result column="MEMO" property="memo" />
+    <result column="IS_GROUP_LEADER" property="isGroupLeader" />
+    <result column="TECHEICIAN_TYPE_ID" property="techeicianTypeId" />
+    <result column="ORDER_INDEX" property="orderIndex" />
+    <result column="VERSION" property="version" />
+    <result column="PUBLISH_ORG_NAME" property="publishOrgName" />
+    <result column="KNOWLEDGE_NAME" property="knowledgeName" />
+    <result column="AUTHORS_NAME" property="authorsName" />
+</resultMap>
+
+<resultMap id="cursorBookRangeOrgMap" type="com.rebs.db.domain.BookRangeOrg" >
+    <result column="BOOK_ID" property="bookId" />
+    <result column="ORG_ID" property="orgId" />
+</resultMap>
+
+<resultMap id="cursorBookRangePostMap" type="com.rebs.db.domain.BookRangePost" >
+    <result column="BOOK_ID" property="bookId" />
+    <result column="POST_ID" property="postId" />
+</resultMap>
+
+<resultMap id="cursorBookTrainTypeMap" type="com.rebs.db.domain.BookTrainType" >
+    <result column="BOOK_ID" property="bookId" />
+    <result column="TRAIN_TYPE_ID" property="trainTypeId" />
+    <result column="TRAIN_TYPE_NAME" property="typeName" />
+    <result column="PARENT_ID" property="parentId" />
+    <result column="ORDER_INDEX" property="orderIndex" />
+</resultMap>
+
+  <!-- 查询课题-->
+  <select id="callProcedureUSP_BOOK_Q_KnowledgeID"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_Q_KnowledgeID(
+               #{p_knowledge_id,mode=IN,jdbcType=NUMERIC},
+               #{p_org_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_out, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorMap}
+         )
+      }
+  </select>
+  
+  <!-- 查询课题-->
+  <select id="callProcedureUSP_BOOK_ByCondition_Q"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_ByCondition_Q(
+               #{p_knowledge_id,mode=IN,jdbcType=NUMERIC},
+               #{p_book_Name,mode=IN,jdbcType=VARCHAR},
+               #{p_keyWords,mode=IN,jdbcType=VARCHAR},
+               #{p_authors,mode=IN,jdbcType=VARCHAR},
+               #{p_org_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_out, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorMap}
+         )
+      }
+  </select>
+  
+  <!-- 查询章节-->
+  <select id="callProcedureUSP_BOOK_G"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_G(
+               #{p_book_id,mode=IN,jdbcType=NUMERIC},
+               #{p_org_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorMap}
+         )
+      }
+  </select>
+  
+   <select id="callProcedureUSP_BOOK_RANGE_ORG_S"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_RANGE_ORG_S(
+               #{p_book_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorBookRangeOrgMap}
+         )
+      }
+  </select>
+   <select id="callProcedureUSP_BOOK_RANGE_POST_S"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_RANGE_POST_S(
+               #{p_book_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorBookRangePostMap}
+         )
+      }
+  </select>
+   <select id="callProcedureUSP_BOOK_TRAIN_TYPE_S"  parameterType="java.util.Map" statementType="CALLABLE">
+     {
+         call USP_BOOK_TRAIN_TYPE_S(
+               #{p_book_id,mode=IN,jdbcType=NUMERIC},
+               #{cur_OUT, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=cursorBookTrainTypeMap}
+         )
+      }
+  </select>
+  
+  <select id="getBookUrlById"  parameterType="INTEGER" resultType="com.rebs.db.domain.Book">
+     SELECT 
+        BOOK_ID AS bookId,
+        URL  AS url
+     FROM 
+       Book
+     WHERE 
+       BOOK_ID = #{bookId}
+  </select>
+  
+</mapper>

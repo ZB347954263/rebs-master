@@ -1,0 +1,107 @@
+<!-- 渲染普通的单项数据 -->
+<template name="radio">
+  <view class="container">
+  <block wx:for="{{itemList.answerList}}"  wx:key="index">
+       <!-- 未做题 -->
+      <!-- <block wx:if="{{!itemList.isNoFirst}}"> -->
+        <view class="list {{itemList.options[item.index].isSelect?'active':''}}" data-index="{{item.index}}" data-option="{{item.tip}}" bindtap="tapRadio">
+          <view class="number">{{item.tip}}</view> {{item.content}}
+        </view>
+      <!-- </block> -->
+      <!-- 已做题 -->
+      <!-- <block wx:if="{{itemList.isNoFirst}}">
+         <block wx:if="{{itemList.options[item.index].isSelect}}">
+          <view class="list {{itemList.standardAnswesInt == item.index?'success':'error'}}" data-option="{{item.tip}}" bindtap="tapRadio">
+            <view class="number"> {{item.tip}}</view> {{item.content}}
+          </view>
+        </block>
+        <view wx:else class="list {{itemList.standardAnswesInt == item.index?'success':''}}" data-option="{{item.tip}}" bindtap="tapRadio">
+            <view class="number"> {{item.tip}}</view> {{item.content}}
+        </view>
+      </block> -->
+  </block>
+  </view>
+</template>
+
+<!-- 渲染普通的多选数据 -->
+<template name="checkbox">
+  <view class="container">
+   <block wx:for="{{itemList.answerList}}"  wx:key="index">
+    <!-- <block wx:if="{{!itemList.isNoFirst}}"> -->
+      <view class="list {{itemList.options[item.index].isSelect?'active':''}}" data-index="{{item.index}}" data-option="{{item.tip}}" bindtap="tapCheckbox">
+        <view class="number">{{item.tip}}</view> {{item.content}}
+      </view>
+    <!-- </block> -->
+     <!-- <block wx:if="{{itemList.isNoFirst}}">
+      <block wx:if="{{itemList.options[item.index].isSelect}}">
+        <view class="list {{!itemList.options[item.index].correct?'error':'success'}}" data-option="{{item.tip}}" bindtap="tapCheckbox">
+          <view class="number"> {{item.tip}}</view> {{item.content}}
+        </view>
+      </block>
+      <view wx:else class="list {{itemList.options[item.index].correct?'active-success':''}}" data-option="{{item.tip}}" bindtap="tapCheckbox">
+          <view class="number"> {{item.tip}}</view> {{item.content}}
+      </view>
+    </block> -->
+  </block>
+  </view>
+  <view class="btn-bg">
+    <view class="btn" wx:if="{{itemList}}"  bindtap="tabCheckbokSelect">确定</view>
+  </view>
+</template>
+
+
+<!-- 页面题目模板，这个模板是一道题目 -->
+<template name="movie-list">
+    <view class="header">
+      <view class="xuanz">{{itemList.typeName}}</view>
+      {{answers.showActiveNum + 1}}. {{itemList.content}}
+    </view>
+    <!-- 单选和判断 -->
+    <template wx:if="{{itemList.typeId == 1 || itemList.typeId == 3}}" is="radio" data="{{itemList,idx,answers}}"/>
+    <!-- 多选 -->
+    <template wx:if="{{itemList.typeId == 2}}" is="checkbox" data="{{itemList,idx,answers}}"/>
+    <!-- 题目的答案 ，考试不展示-->
+    <!-- <template is="analysis" wx:if="{{itemList.isAnswer == 2}}" data="{{answers,itemList}}"/> -->
+</template>
+
+<!-- 页面题目答案模板 -->
+<template name="analysis">
+  <view class="analysis">
+    <view class="analysis-header">试题答案</view>
+    <!-- 单选 和 判断-->
+    <block wx:if="{{itemList.typeId == 1 || itemList.typeId == 3 }}" >
+     <view class="analysis-content">{{itemList.answerList[itemList.standardAnswesInt].tip}}</view>
+    </block>
+    <!-- 多选 -->
+    <block wx:if="{{itemList.typeId == 2}}" >
+         <view class="analysis-content">
+           <block wx:for="{{itemList.standardAnswerList}}"  wx:key="tip">
+              {{item.tip}}
+          </block>
+         </view>
+    </block>
+  </view>
+</template>
+
+<!-- 题目选择模层 -->
+<template name="layer">
+ <scroll-view  class="status-lists"scroll-y="true">
+ <!-- <block  wx:for="{{answers.allLists}}" wx:key="randomExamItemId">
+ {{item.isNoFirst}}
+    <view bindtap="setActiveNum" data-option="{{index}}" wx:if="{{item.isAnswer == 0}}" class="status-list {{answers.activeNum == index?'active':''}}">{{index+1}}</view>
+    <view bindtap="setActiveNum" data-option="{{index}}" wx:if="{{item.isAnswer == 1}}" class="status-list success  {{answers.activeNum == index?'active':''}}">{{index+1}}</view>
+    <view bindtap="setActiveNum" data-option="{{index}}" wx:if="{{item.isAnswer == 2}}" class="status-list error  {{answers.activeNum == index?'active':''}}">{{index+1}}</view>
+  </block> -->
+  <block  wx:for="{{answers.allLists}}" wx:key="randomExamItemId">
+    <view bindtap="setActiveNum" data-option="{{index}}" wx:if="{{!item.isNoFirst}}" class="status-list {{answers.activeNum == index?'active':''}}">{{index+1}}</view>
+    <view bindtap="setActiveNum" data-option="{{index}}" wx:if="{{item.isNoFirst}}" class="status-list success  {{answers.activeNum == index?'active':''}}">{{index+1}}</view>
+  </block>
+ </scroll-view>
+</template>
+<!-- 试题详解 -->
+<!-- <template name="tip">
+ <view class="resolve">
+  <view class="h1">试题答案</view>
+  {{itemList.tip}}
+ </view>
+</template> -->

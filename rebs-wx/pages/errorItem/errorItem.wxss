@@ -1,0 +1,2 @@
+/* pages/errorItem/errorItem.wxss */
+@import "../answer_common/movie-list.wxss";

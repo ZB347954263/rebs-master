@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rebs.db.dao.PastExamMapper" >
+
+<!-- 根据userId查询已考试列表-->
+<select id="getPastExamByUserId" 
+    parameterType="com.rebs.db.domain.PastExamIN" resultType="com.rebs.db.domain.RandomExamResultCurrent">
+    select
+        A.RANDOM_EXAM_RESULT_ID as randomExamResultId,
+        A.ORG_ID as orgid,
+        A.RANDOM_EXAM_ID as randomExamId,
+        A.EXAMINEE_ID as examineeId,
+        A.BEGIN_TIME as beginTime,
+        A.CURRENT_TIME as currentTime,
+        A.END_TIME as endTime,
+        A.EXAM_TIME as examTime,
+        A.AUTO_SCORE as autoScore,
+        A.SCORE as score,
+        A.CORRECT_RATE as correctRate,
+        A.IS_PASS as isPass,
+        A.STATUS_ID as statusId,
+        C.EXAM_NAME as examName,
+        C.CAN_SEE_ANSWER as canSeeAnswer,
+        C.CAN_SEE_SCORE as canSeeScore
+    FROM 
+        (select * from Random_EXAM_RESULT union all select * from Random_EXAM_RESULT_Temp) A
+	    INNER JOIN ORG B on b.org_id = A.org_id
+	    INNER JOIN Random_EXAM C on c.Random_Exam_Id = A.Random_Exam_Id
+        INNER JOIN EMPLOYEE E on e.employee_id = A.examinee_id
+        INNER JOIN Post f on e.Post_ID = f.Post_ID
+        INNER JOIN Org h on GetStationOrgID(e.Org_ID) = h.Org_Id
+        INNER JOIN EXAM_Result_STATUS G on g.exam_result_status_id = A.status_id
+    WHERE 1=1  
+        and A.EXAMINEE_ID = #{userID,jdbcType=NUMERIC}
+        <![CDATA[ AND TO_DATE(TO_CHAR(A.BEGIN_TIME,'yyyy-mm-dd'),'yyyy-mm-dd') >= TO_DATE(TO_CHAR(#{beginDate},'yyyy-mm-dd'),'yyyy-mm-dd') ]]>
+        <![CDATA[ AND TO_DATE(TO_CHAR(A.END_TIME,'yyyy-mm-dd'),'yyyy-mm-dd') <= TO_DATE(TO_CHAR(#{endDate},'yyyy-mm-dd'),'yyyy-mm-dd') ]]>
+        AND C.EXAM_MODE_ID = 2
+    ORDER BY A.Begin_Time DESC
+</select>
+
+
+<resultMap id="pastRandomExamSubjectItem" type="com.rebs.db.domain.RandomExamItem" >
+    <result column="RANDOM_EXAM_ITEM_ID" property="randomExamItemId" />
+    <result column="ITEM_ID" property="itemId" />
+    <result column="BOOK_ID" property="bookId" />
+    <result column="CHAPTER_ID" property="chapterId" />
+    <result column="CATEGORY_ID" property="categoryId" />
+    <result column="ORG_ID" property="orgId" />
+    <result column="TYPE_ID" property="typeId" />
+    <result column="COMPLETE_TIME" property="completeTime" />
+    <result column="DIFFICULTY_ID" property="difficultyId" />
+    <result column="SOURCE" property="source" />
+    <result column="VERSION" property="version" />
+    <result column="SCORE" property="score" />
+    <result column="CONTENT" property="content" />
+    <result column="ANSWER_COUNT" property="answerCount" />
+    <result column="SELECT_ANSWER" property="selectAnswer" />
+    <result column="STANDARD_ANSWER" property="standardAnswer" />
+    <result column="DESCRIPTION" property="description" />
+    <result column="OUTDATE_DATE" property="outdateDate" />
+    <result column="USED_COUNT" property="usedCount" />
+    <result column="STATUS_ID" property="statusId" />
+    <result column="CREATE_PERSON" property="createPerson" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="MEMO" property="memo" />
+    <result column="SUBJECT_ID" property="subjectId" />
+    <result column="RANDOM_EXAM_ID" property="randomExamId" />
+    <result column="STRATEGY_ID" property="strategyId" />
+    <result column="ERROR_DATE" property="errorDate" />
+    <result column="WEIGHT" property="weight" />
+    <result column="PARENT_ITEM_ID" property="parentItemId" />
+    <result column="MOTHER_CODE" property="motherCode" />
+    <result column="ITEM_INDEX" property="itemIndex" />
+    <result column="TYPE_NAME" property="typeName" />
+    <result column="ANSWER" property="answer" />
+</resultMap>
+<!-- 获取考试题目-->
+<select id="callUSP_random_exam_ITEM_G" parameterType="java.util.Map" statementType="CALLABLE">
+    {
+        call USP_random_exam_ITEM_G(
+            #{P_SUBJECT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_RANDOM_EXAM_RESULT_ID,mode=IN,jdbcType=NUMERIC},
+            #{P_YEAR,mode=IN,jdbcType=NUMERIC},
+            #{CUR_OUT,mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet,resultMap=pastRandomExamSubjectItem}
+        )
+    }
+</select>
+
+  
+</mapper>
